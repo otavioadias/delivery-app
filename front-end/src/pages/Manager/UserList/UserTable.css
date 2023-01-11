@@ -1,0 +1,32 @@
+.userId {
+  background: #d8a135;
+  padding: 10px;
+}
+
+.name {
+  padding: 10px;
+  padding-left: 10px;
+  text-align: left;
+}
+
+.email {
+  background: #f4b740;
+  padding: 10px;
+}
+
+.role {
+  background: #00c04d;
+  color: white;
+  padding: 10px;
+}
+
+.deleteUser {
+  background: #830000;
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+.deleteUser button:hover {
+  cursor: pointer;
+}

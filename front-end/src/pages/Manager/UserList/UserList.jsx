@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from '../../../components/Navbar/Navbar';
 import validateEmail from '../../../utils/validate';
 import api from '../../../services/api';
+import './UserList.css';
 import UserTable from './UserTable';
 import userType from '../../../utils/userTypes';
 
@@ -84,7 +85,7 @@ function UserList() {
   return (
     <>
       <Navbar />
-      <div>
+      <div className="containerInputs">
         {erroMsg && (
           <div data-testid="admin_manage__element-invalid-register">
             {erroMsg}
@@ -125,6 +126,7 @@ function UserList() {
               type="email"
               name="email"
               data-testid="admin_manage__input-email"
+              placeholder="E-mail"
               onChange={ (event) => {
                 const { value } = event.target;
                 const isValid = validateEmail(value);
@@ -147,6 +149,7 @@ function UserList() {
               type="password"
               name="password"
               data-testid="admin_manage__input-password"
+              placeholder="Password"
               onChange={ (event) => {
                 const { value } = event.target;
                 if (value.length >= validateRules.PASSWORD_LENGTH) {
@@ -192,7 +195,7 @@ function UserList() {
               ))}
             </select>
           </div>
-          <div>
+          <div className="registerButton">
             <button
               disabled={ errors.email || errors.name || errors.password || errors.role }
               type="submit"
@@ -203,34 +206,36 @@ function UserList() {
           </div>
         </form>
       </div>
-      <table>
-        <thead>
-          <tr>
-            {titleHead.map((item) => (
-              <th
-                key={ item.id }
-                align={ item.align }
-                width={ item.width }
-              >
-                {item.title}
-              </th>
+      <div className="tableContainer">
+        <table>
+          <thead>
+            <tr>
+              {titleHead.map((item) => (
+                <th
+                  key={ item.id }
+                  align={ item.align }
+                  width={ item.width }
+                >
+                  {item.title}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {users && users?.map((item, index) => (
+              <UserTable
+                key={ item?.id }
+                id={ item?.id }
+                index={ index }
+                name={ item?.name }
+                email={ item?.email }
+                role={ item?.role }
+                handleDelete={ handleDelete }
+              />
             ))}
-          </tr>
-        </thead>
-        <tbody>
-          {users && users?.map((item, index) => (
-            <UserTable
-              key={ item?.id }
-              id={ item?.id }
-              index={ index }
-              name={ item?.name }
-              email={ item?.email }
-              role={ item?.role }
-              handleDelete={ handleDelete }
-            />
-          ))}
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
     </>
   );
 }

@@ -1,0 +1,100 @@
+.tableContainer {
+  align-content: center;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.productId {
+  background: #d8a135;
+  padding: 10px;
+}
+
+.productName {
+  padding: 10px;
+  padding-left: 10px;
+  text-align: left;
+}
+
+.productQuantity {
+  background: #ffb740;
+  padding: 10px;
+}
+
+.productPrice {
+  background: #6e7191;
+  color: white;
+  padding: 10px;
+}
+
+.productTotal {
+  background: #774000;
+  color: white;
+  padding: 10px;
+}
+
+.checkoutButton button {
+  background: #d8a135;
+  border: none;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  width: 200px;
+}
+
+.productRemove {
+  background: #830000;
+  color: white;
+}
+
+.productRemove button {
+  background: #830000;
+  border: none;
+  color: white;
+  padding: 10px;
+}
+
+.productRemove button:hover {
+  color: white;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.containerValue {
+  display: flex;
+  justify-content: right;
+  margin-top: 20px;
+}
+
+.colorValue {
+  background: #d8a135;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  width: 100px;
+}
+
+.h3Finale {
+  padding-left: 22px;
+}
+
+.containerInputs {
+  display: flex;
+  gap: 10px;
+  justify-content: space-around;
+}
+
+.containerInputs input, .containerInputs select {
+  padding: 10px;
+  width: 300px;
+}
+
+.checkoutButton {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.checkoutButton button:hover {
+  cursor: pointer;
+}

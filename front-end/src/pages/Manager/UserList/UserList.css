@@ -1,0 +1,48 @@
+table {
+  font-family: Poppins , sans-serif;
+}
+
+.containerInputs form {
+  align-items: space-around;
+  display: flex;
+  gap: 10px;
+}
+
+.containerInputs input {
+  padding: 7px;
+  width: 220px;
+}
+
+.containerInputs select {
+  padding: 7px;
+  width: 100px;
+}
+
+.checkoutButton {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.registerButton button {
+  background: #006725;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  padding: 9px;
+  text-align: center;
+  width: 100px;
+}
+
+.registerButton button:hover {
+  cursor: pointer;
+}
+
+.tableContainer {
+  align-content: center;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  text-align: center;
+}
+

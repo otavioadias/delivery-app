@@ -1,0 +1,29 @@
+.containerOrderItem {
+  align-items: center;
+  border: 1px solid #d8a135;
+  border-radius: 10px;
+  display: flex;
+  gap: 20px;
+  height: 100px;
+  justify-content: center;
+  padding: 0 10px;
+  text-decoration: none;
+  width: 300px;
+}
+
+.order {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.status {
+  background: #d8a135;
+  border-radius: 5px;
+  padding: 15px;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}

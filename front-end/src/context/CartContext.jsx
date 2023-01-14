@@ -2,7 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import useLocalStorage from '../hooks/useLocalStorage';
 
-export const CartContext = React.createContext();
+const defaultValue = {
+  cart: [],
+  setCart: () => {},
+  products: [],
+  setProducts: () => {},
+};
+
+export const CartContext = React.createContext(defaultValue);
 
 export default function CartProvider({ children }) {
   const { value } = useLocalStorage('cart', '');

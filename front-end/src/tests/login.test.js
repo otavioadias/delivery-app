@@ -1,12 +1,26 @@
 import React from 'react';
 import userEvent from '@testing-library/user-event';
 import { screen, waitFor } from '@testing-library/react';
-import axios from 'axios';
+// import axios from 'axios';
+import API from '../API';
 import render from './helpers/renderWithContext';
 import App from '../App';
-import { email, password, baseUrl, loginResponse } from './mocks/mock';
+import { email, password, loginResponse, loginResponseAdm } from './mocks/mock';
+import api from '../services/api';
 
 describe('1 - Testa a pagina de Login', () => {
+  const LOGIN_ID = 'common_login__input-email';
+  const PASSWORD_ID = 'common_login__input-password';
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+    localStorage.clear();
+  });
+  beforeEach(() => {
+    jest.mock('../API');
+    jest.mock('../services/api');
+  });
+
   it('Testa se o caminho / leva para a rota /login', () => {
     // arrange
     const { history: { pathname } } = render(<App />);
@@ -20,8 +34,8 @@ describe('1 - Testa a pagina de Login', () => {
   it('Testa se os elementos da pagina de login estao na tela', () => {
     // arrange
     render(<App />, '/login');
-    const loginInput = screen.getByRole('textbox', { name: /login/i });
-    const passwordInput = screen.getByLabelText(/Senha/i);
+    const loginInput = screen.getByTestId(LOGIN_ID);
+    const passwordInput = screen.getByTestId(PASSWORD_ID);
     const loginButton = screen.getByRole('button', { name: /login/i });
     const registerButton = screen.getByRole('button', { name: /ainda não tenho uma conta/i });
 
@@ -47,8 +61,8 @@ describe('1 - Testa a pagina de Login', () => {
   it('Testa se o botao de login fica habilitado quando se cumpre os requisitos.', () => {
     // arrange
     render(<App />, '/login');
-    const loginInput = screen.getByRole('textbox', { name: /login/i });
-    const passwordInput = screen.getByLabelText(/Senha/i);
+    const loginInput = screen.getByTestId(LOGIN_ID);
+    const passwordInput = screen.getByTestId(PASSWORD_ID);
     const loginButton = screen.getByRole('button', { name: /login/i });
     // act
     userEvent.type(loginInput, email);
@@ -62,8 +76,8 @@ describe('1 - Testa a pagina de Login', () => {
     // arrange
     render(<App />, '/login');
     const wrongPassword = '$#zebiritinha';
-    const loginInput = screen.getByRole('textbox', { name: /login/i });
-    const passwordInput = screen.getByLabelText(/Senha/i);
+    const loginInput = screen.getByTestId(LOGIN_ID);
+    const passwordInput = screen.getByTestId(PASSWORD_ID);
     const loginButton = screen.getByRole('button', { name: /login/i });
     // act
     userEvent.type(loginInput, email);
@@ -87,13 +101,12 @@ describe('1 - Testa a pagina de Login', () => {
     });
   });
 
-  it('Testa se eh possivel fazer login', async () => {
+  it('Testa se eh possivel fazer login como customer', async () => {
     // arrange
-    jest.mock('axios');
-    axios.post.mockResolvedValue(loginResponse);
+    API.post = jest.fn().mockResolvedValue({ data: loginResponse });
     const { history } = render(<App />, '/login');
-    const loginInput = screen.getByRole('textbox', { name: /login/i });
-    const passwordInput = screen.getByLabelText(/Senha/i);
+    const loginInput = screen.getByTestId(LOGIN_ID);
+    const passwordInput = screen.getByTestId(PASSWORD_ID);
     const loginButton = screen.getByRole('button', { name: /login/i });
     // act
     userEvent.type(loginInput, email);
@@ -101,9 +114,49 @@ describe('1 - Testa a pagina de Login', () => {
     expect(loginButton).toBeEnabled();
     userEvent.click(loginButton);
     // assert
-    expect(axios.post).toHaveBeenCalledWith(`${baseUrl}/login`);
+    expect(API.post)
+      .toHaveBeenCalledWith(
+        '/login',
+        { email: 'zebirita@email.com', password: '$#zebirita#$' },
+      );
     await waitFor(() => {
       expect(history.pathname).toBe('/customer/products');
+    });
+  });
+
+  it('Testa se eh possivel fazer login como adm', async () => {
+    // arrange
+    API.post = jest.fn().mockResolvedValue({ data: loginResponseAdm });
+    api.get = jest.fn().mockResolvedValue({ data: [] });
+    const { history } = render(<App />, '/login');
+    const loginInput = screen.getByTestId(LOGIN_ID);
+    const passwordInput = screen.getByTestId(PASSWORD_ID);
+    const loginButton = screen.getByRole('button', { name: /login/i });
+    // act
+    userEvent.type(loginInput, loginResponseAdm.email);
+    userEvent.type(passwordInput, '--adm2@21!!--');
+    expect(loginButton).toBeEnabled();
+    userEvent.click(loginButton);
+    // assert
+    expect(API.post)
+      .toHaveBeenCalledWith(
+        '/login',
+        { email: loginResponseAdm.email, password: '--adm2@21!!--' },
+      );
+    await waitFor(() => {
+      expect(history.pathname).toBe('/admin/manage');
+    });
+  });
+
+  it('Testa se ja logado eh redirecionado', async () => {
+    // arrange
+    localStorage.setItem('user', JSON.stringify(loginResponseAdm));
+    api.get = jest.fn().mockResolvedValue({ data: [] });
+    const { history } = render(<App />, '/login');
+    // act
+    // assert
+    await waitFor(() => {
+      expect(history.pathname).toBe('/admin/manage');
     });
   });
 });

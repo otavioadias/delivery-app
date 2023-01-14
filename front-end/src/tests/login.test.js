@@ -90,7 +90,7 @@ describe('1 - Testa a pagina de Login', () => {
   it('Testa se eh possivel fazer login', async () => {
     // arrange
     jest.mock('axios');
-    axios.post.mockResolvedValueOnce(loginResponse);
+    axios.post.mockResolvedValue(loginResponse);
     const { history } = render(<App />, '/login');
     const loginInput = screen.getByRole('textbox', { name: /login/i });
     const passwordInput = screen.getByLabelText(/Senha/i);

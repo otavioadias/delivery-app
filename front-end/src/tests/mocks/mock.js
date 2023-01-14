@@ -22,3 +22,10 @@ export const loginResponseAdm = {
   iRGVsaXZlcnkgQXBwIEFkbWluIiwicm9sZSI6ImFkbWluaXN0cmF0b3IiLCJpYX
   QiOjE2NzM3MjEwOTcsImV4cCI6MTY3NTc5NDY5N30.8fhPMD4xqw2XpHXLxEONFF6mrYE6XMp3pXrl_RAVLCE`,
 };
+
+export const registerUser = {
+  email: 'joaozin@gmail.com',
+  name: 'Joaozin cabra da peste',
+  password: 'joaozin123',
+  role: 'consumer',
+};

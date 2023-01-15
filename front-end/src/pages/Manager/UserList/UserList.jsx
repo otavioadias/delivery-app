@@ -29,6 +29,7 @@ function UserList() {
         authorization: user?.token,
       },
     }).then((response) => {
+      console.log(response);
       setUsers(response.data);
     }).catch((error) => {
       console.error(error.response.data.message);

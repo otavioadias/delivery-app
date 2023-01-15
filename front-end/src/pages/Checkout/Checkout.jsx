@@ -30,6 +30,7 @@ function Checkout() {
         authorization: user?.token,
       },
     }).then((response) => {
+      console.log(response);
       setSellers(response.data);
     }).catch((error) => {
       console.error(error);

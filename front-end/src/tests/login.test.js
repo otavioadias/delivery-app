@@ -7,6 +7,7 @@ import render from './helpers/renderWithContext';
 import App from '../App';
 import { email, password, loginResponse, loginResponseAdm } from './mocks/mock';
 import api from '../services/api';
+import { login } from '../API/user.API';
 
 describe('1 - Testa a pagina de Login', () => {
   const LOGIN_ID = 'common_login__input-email';
@@ -104,6 +105,7 @@ describe('1 - Testa a pagina de Login', () => {
   it('Testa se eh possivel fazer login como customer', async () => {
     // arrange
     API.post = jest.fn().mockResolvedValue({ data: loginResponse });
+    api.get = jest.fn().mockResolvedValue({ data: [] });
     const { history } = render(<App />, '/login');
     const loginInput = screen.getByTestId(LOGIN_ID);
     const passwordInput = screen.getByTestId(PASSWORD_ID);
@@ -158,5 +160,15 @@ describe('1 - Testa a pagina de Login', () => {
     await waitFor(() => {
       expect(history.pathname).toBe('/admin/manage');
     });
+  });
+
+  it('Testa se ja logado eh redirecionado', async () => {
+    // arrange
+    API.post = jest.fn().mockRejectedValue(new Error('Error message'));
+    render(<App />, '/login');
+    // act
+    const response = await login({ email: 'test@test.com', password: 'password' });
+    expect(response).toBeNull();
+    // assert
   });
 });

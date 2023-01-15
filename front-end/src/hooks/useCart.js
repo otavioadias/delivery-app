@@ -7,9 +7,9 @@ const useCart = () => {
   const { cart, setCart, products, setProducts } = React.useContext(CartContext);
   const cartItems = [...products];
 
-  React.useEffect(() => {
-    console.log(cart);
-  }, []);
+  // React.useEffect(() => {
+  //   console.log(cart);
+  // }, []);
 
   const addProduct = (productValue) => {
     const index = cartItems?.findIndex((item) => item?.id === productValue.id);

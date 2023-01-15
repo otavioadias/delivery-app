@@ -63,6 +63,7 @@ function Checkout() {
         authorization: user?.token,
       },
     }).then((response) => {
+      console.log(response);
       navigate(`/customer/orders/${response.data.id}`);
     }).catch((error) => {
       console.error(error.response.data);

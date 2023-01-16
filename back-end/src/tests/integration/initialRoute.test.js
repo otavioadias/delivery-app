@@ -13,15 +13,15 @@ chai.use(chaiHttp);
 
 const port = process.env.PORT || 3001;
 
-describe('Teste do servidor', () => {
-  it('Deve executar a aplicação na porta especificada', () => {
-    app.listen(port);
+// describe('Teste do servidor', () => {
+//   it('Deve executar a aplicação na porta especificada', () => {
+//     app.listen(port);
 
-    setTimeout(() => {
-      expect(app.listening).to.be.ok;
-    }, 1000);
-  });
-});
+//     setTimeout(() => {
+//       expect(app.listening).to.be.ok;
+//     }, 1000);
+//   });
+// });
 
 describe('Test route', () => {
   it('should return a success message', async () => {

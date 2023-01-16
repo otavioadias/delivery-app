@@ -8,7 +8,9 @@ import api from '../../../services/api';
 import './ProductList.css';
 
 function ProductList() {
-  const { cart, products, setProducts } = React.useContext(CartContext);
+  const { products, setProducts } = React.useContext(CartContext);
+
+  console.log('PRODUCTS', products);
 
   const navigate = useNavigate();
   // const { value } = useLocalStorage('user', '');
@@ -16,16 +18,18 @@ function ProductList() {
 
   React.useEffect(() => {
     if (!isLogged || !isLogged.token) {
+      console.log('trolou');
       navigate('/login');
     }
   }, []);
 
-  React.useEffect(() => {
-    console.log(cart);
-  }, [cart]);
+  // React.useEffect(() => {
+  //   console.log(cart);
+  // }, [cart]);
 
   const fetchProducts = React.useCallback(async () => {
     api.get('/products').then((response) => {
+      console.log(response);
       setProducts(response.data.map((item) => ({ ...item, quantity: 0 })));
     }).catch((error) => {
       console.error(error);
@@ -34,7 +38,7 @@ function ProductList() {
 
   React.useEffect(() => {
     fetchProducts();
-  }, [fetchProducts]);
+  }, []);
 
   return (
     <div>

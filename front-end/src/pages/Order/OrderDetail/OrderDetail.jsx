@@ -43,6 +43,7 @@ function OrderDetail() {
         authorization: user?.token,
       },
     }).then((response) => {
+      console.log(response);
       setOrderId(response.data);
     }).catch((error) => {
       console.error(error);
@@ -66,7 +67,6 @@ function OrderDetail() {
       console.error(error);
     });
   }, []);
-
   const fetchOrders = React.useCallback(async () => {
     console.log('entrou no fetch orders');
     await api.get('/sales', {

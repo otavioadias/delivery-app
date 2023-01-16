@@ -26,11 +26,9 @@ function App() {
     }
   }, []);
 
-  const appRouter = value?.role === 'administrator'
-    ? '/admin/manage'
-    : '/customer/products';
-
-  console.log(appRouter);
+  // const appRouter = value?.role === 'administrator'
+  //   ? '/admin/manage'
+  //   : '/customer/products';
 
   return (
     <Routes>

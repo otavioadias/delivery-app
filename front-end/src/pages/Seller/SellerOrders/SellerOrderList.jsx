@@ -13,6 +13,7 @@ function SellerOrderList() {
         authorization: user?.token,
       },
     }).then((response) => {
+      console.log(response);
       setOrders(response.data);
     }).catch((error) => {
       console.error(error);
